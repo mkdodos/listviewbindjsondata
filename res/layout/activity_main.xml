@@ -6,20 +6,42 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.listviewbindjsondata.MainActivity" >
+    tools:context="com.example.listviewbindjsondata.MainActivity" 
+    
+    >
 
+    
     <TextView
-        android:id="@+id/tvHello"
+        android:id="@+id/tvWorkID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:textSize="20sp"
+        android:text="工作單號"
+        
+         />
+    
+
+    
+    
+    <TextView
+        android:id="@+id/tvHello"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:layout_toRightOf="@+id/tvWorkID"
+        android:paddingLeft="10dip"
+         />
 
     <ListView
         android:id="@+id/lvIdEdu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:drawSelectorOnTop="false" >
+        android:drawSelectorOnTop="false"
+        android:layout_below="@+id/tvHello"
+        
+         >
     </ListView>
 
 </RelativeLayout>

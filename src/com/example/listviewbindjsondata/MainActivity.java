@@ -2,14 +2,26 @@ package com.example.listviewbindjsondata;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
+
+	String result = "";
+	TextView tv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,22 +29,43 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_main);
 		try {
 			InputStream is = getAssets().open("works.txt");
-			TextView tv = (TextView) findViewById(R.id.tvHello);
+			tv = (TextView) findViewById(R.id.tvHello);
 
 			int size = is.available();
 			byte[] buffer = new byte[size];
 			is.read(buffer);
-			String result = new String(buffer);
-
-			tv.setText(result+"add"+"two只要這有修改,在github的桌面程式就可看到,要按下Sync,然後就會出現一個向上箭頭和數字,代表有幾個更改尚未同步至網路,讓數字出現2");
-//=======
-			tv.setText(result+"add"+"two只要這有修改,在github的桌面程式就可看到,要按下Sync,就會出現一個向上箭頭");
-//>>>>>>> parent of 757168e... 總算可以懂一些了
+			result = new String(buffer);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		JSONObject c;
+		ArrayList<HashMap<String, String>> arraylist = new ArrayList<HashMap<String, String>>();
+		try {
+			JSONObject obj = new JSONObject(result);
+			JSONArray array = obj.getJSONArray("works");
+			String s = "";
+			for (int i = 0; i < array.length(); i++) {
+				c = array.getJSONObject(i);
+				map.put("size1", "Φ"+c.getString("size1"));
+				map.put("work_id", c.getString("work_id"));
+				arraylist.add(map);
+			}
+			ListAdapter adapter = new SimpleAdapter(MainActivity.this,
+					arraylist, R.layout.list_item, new String[] { "work_id",
+							"size1" }, new int[] { R.id.textView2,
+							R.id.textView1 });
+			ListView lv = (ListView) findViewById(R.id.lvIdEdu);
+			lv.setAdapter(adapter);
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}// 取得陣列物件
+
 	}
 
 	@Override
