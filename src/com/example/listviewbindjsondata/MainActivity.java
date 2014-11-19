@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
 			byte[] buffer = new byte[size];
 			is.read(buffer);
 			String result = new String(buffer);
-			tv.setText(result+"add"+"two");
+			tv.setText(result+"add"+"two只要這有修改,在github的桌面程式就可看到,要按下Sync");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
