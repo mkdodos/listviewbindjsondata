@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
 			byte[] buffer = new byte[size];
 			is.read(buffer);
 			String result = new String(buffer);
-			tv.setText(result+"add");
+			tv.setText(result+"add"+"two");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
