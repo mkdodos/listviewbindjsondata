@@ -5,4 +5,12 @@
     <string name="hello_world">哈囉 你好</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="items">
+        <item>活動一(JSON assets)</item>
+        <item>活動二(JSON http)</item>
+    </string-array>
+
+    <string name="title_activity_json">JSONActivity</string>
+    <string name="title_activity_jsonhttp">JSONHttpActivity</string>
+
 </resources>

@@ -10,63 +10,55 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListAdapter;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
+
 
 public class MainActivity extends ActionBarActivity {
 
-	String result = "";
-	TextView tv;
+	
+	
+	ListView lvMain;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		try {
-			InputStream is = getAssets().open("works.txt");
-			tv = (TextView) findViewById(R.id.tvHello);
 
-			int size = is.available();
-			byte[] buffer = new byte[size];
-			is.read(buffer);
-			result = new String(buffer);
+		ArrayAdapter<CharSequence> adapterMain = ArrayAdapter
+				.createFromResource(this, R.array.items,
+						android.R.layout.simple_list_item_1);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		HashMap<String, String> map = new HashMap<String, String>();
-		JSONObject c;
-		ArrayList<HashMap<String, String>> arraylist = new ArrayList<HashMap<String, String>>();
-		try {
-			JSONObject obj = new JSONObject(result);
-			JSONArray array = obj.getJSONArray("works");
-			String s = "";
-			for (int i = 0; i < array.length(); i++) {
-				c = array.getJSONObject(i);
-				map.put("size1", "Φ"+c.getString("size1"));
-				map.put("work_id", c.getString("work_id"));
-				arraylist.add(map);
-			}
-			ListAdapter adapter = new SimpleAdapter(MainActivity.this,
-					arraylist, R.layout.list_item, new String[] { "work_id",
-							"size1" }, new int[] { R.id.textView2,
-							R.id.textView1 });
-			ListView lv = (ListView) findViewById(R.id.lvIdEdu);
-			lv.setAdapter(adapter);
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}// 取得陣列物件
+		lvMain = (ListView) findViewById(R.id.lvMain);
+		lvMain.setAdapter(adapterMain);
+		lvMain.setOnItemClickListener(lvListener);
 
 	}
+
+	private OnItemClickListener lvListener = new OnItemClickListener() {
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			
+
+			if (position == 0) {
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, JSONActivity.class);
+				startActivity(intent);
+			}else{
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, JSONHttpActivity.class);
+				startActivity(intent);
+			}
+
+		}
+	};
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
