@@ -93,12 +93,13 @@ public class JSONHttpActivity extends ActionBarActivity {
 					c = array.getJSONObject(i);
 					map.put("gdate",  c.getString("gdate"));
 					map.put("price", "$"+c.getString("price"));
+					map.put("price2", "$"+c.getString("price2"));
 					arraylist.add(map);
 				}
 				ListAdapter adapter = new SimpleAdapter(JSONHttpActivity.this,
-						arraylist, R.layout.list_item, new String[] {
-								"gdate", "price" }, new int[] {
-								R.id.textView2, R.id.textView1 });
+						arraylist, R.layout.gold_item, new String[] {
+								"gdate", "price","price2" }, new int[] {
+								R.id.textView2, R.id.textView1,R.id.tvPrice2 });
 				lv = (ListView) findViewById(R.id.lvIdEdu);
 				lv.setAdapter(adapter);
 
